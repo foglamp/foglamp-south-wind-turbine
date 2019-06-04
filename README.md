@@ -13,7 +13,7 @@ sudo apt-get install libusb-1.0-0-dev
 wget https://www.phidgets.com/downloads/phidget22/libraries/linux/libphidget22.tar.gz 
 tar -xzvf ~/libphidget22.tar.gz
 cd ~/libphidget22-1.1.20190417  
-sudo ./configure --prefix=/ && make && sudo make install
+./configure --prefix=/ && make && sudo make install
 fn=`find -name *libphidget22.rule*`
 sudo mv ${fn} /etc/udev/rules.d. 
 ``` 
