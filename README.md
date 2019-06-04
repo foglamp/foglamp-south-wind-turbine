@@ -27,7 +27,7 @@ cd ~/Phidget22Python
 sudo python3 setup.py install
 ```
 
-# Supprted Module 
+# Supprted Sensor Modules
 * Humidity and Temperature [HUM1000_0](https://www.phidgets.com/?tier=3&catid=14&pcid=12&prodid=644)
 * Current [VCP1001_0](https://www.phidgets.com/?tier=3&catid=16&pcid=14&prodid=954)
 * Spatial Phidget [MOT1101_0](https://www.phidgets.com/?tier=3&catid=10&pcid=8&prodid=975)
