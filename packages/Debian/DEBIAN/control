@@ -1,5 +1,5 @@
 Package: foglamp-south-wind-turbine
-Version: 1.0.0
+Version: 1.6.0
 Section: devel
 Priority: optional
 Architecture: all
