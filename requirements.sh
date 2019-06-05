@@ -25,6 +25,13 @@
 mkdir /tmp/wind-turbine-install
 
 cd /tmp/wind-turbine-install
+
+# General prerequisites 
+sudo apt-get -y install build-essential
+sudo apt-get install -y zip unzip
+sudo apt-get install -y python3-setuptools
+
+# Linux specific prerequisites - https://www.phidgets.com/docs/OS_-_Linux
 sudo apt-get install libusb-1.0-0-dev
 wget https://www.phidgets.com/downloads/phidget22/libraries/linux/libphidget22.tar.gz
 tar -xzvf /tmp/wind-turbine-install/libphidget22.tar.gz
@@ -33,6 +40,7 @@ cd /tmp/wind-turbine-install/libphidget22-*
 fn=`find -name *libphidget22.rule*`
 sudo mv ${fn} /etc/udev/rules.d.
 
+# Python3 specific prerequisites - https://www.phidgets.com/docs/Language_-_Python 
 cd /tmp/wind-turbine-install
 wget https://www.phidgets.com/downloads/phidget22/libraries/any/Phidget22Python.zip
 unzip /tmp/wind-turbine-install/Phidget22Python.zip
