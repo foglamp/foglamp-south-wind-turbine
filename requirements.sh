@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ##--------------------------------------------------------------------
-## Copyright (c) 2019 Dianomic Systems
+## Copyright (c) 2019 Dianomic Systems Inc.
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -20,19 +20,18 @@
 ## Author: Ori Shadmon 
 ##
 
-# Install prerequisites for debian package 
+# Apt package
+sudo apt-get install libusb-1.0-0-dev
 
+# Install prerequisites for debian package
 mkdir /tmp/wind-turbine-install
 
 cd /tmp/wind-turbine-install
 
-# General prerequisites 
-sudo apt-get -y install build-essential
+# General prerequisites
 sudo apt-get install -y zip unzip
-sudo apt-get install -y python3-setuptools
 
 # Linux specific prerequisites - https://www.phidgets.com/docs/OS_-_Linux
-sudo apt-get install libusb-1.0-0-dev
 wget https://www.phidgets.com/downloads/phidget22/libraries/linux/libphidget22.tar.gz
 tar -xzvf /tmp/wind-turbine-install/libphidget22.tar.gz
 cd /tmp/wind-turbine-install/libphidget22-*
