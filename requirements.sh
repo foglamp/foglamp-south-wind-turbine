@@ -40,9 +40,4 @@ fn=`find -name *libphidget22.rule*`
 sudo mv ${fn} /etc/udev/rules.d.
 
 # Python3 specific prerequisites - https://www.phidgets.com/docs/Language_-_Python 
-cd /tmp/wind-turbine-install
-wget https://www.phidgets.com/downloads/phidget22/libraries/any/Phidget22Python.zip
-unzip /tmp/wind-turbine-install/Phidget22Python.zip
-cd /tmp/wind-turbine-install/Phidget22Python
-sudo python3 setup.py install
-sudo rm -rf /tmp/wind-turbine-install
+pip3 install Phidget22
