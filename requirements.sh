@@ -20,16 +20,13 @@
 ## Author: Ori Shadmon 
 ##
 
+set -e
+
 # Apt package
 sudo apt-get install libusb-1.0-0-dev
 
-# Install prerequisites for debian package
 mkdir /tmp/wind-turbine-install
-
 cd /tmp/wind-turbine-install
-
-# General prerequisites
-sudo apt-get install -y zip unzip
 
 # Linux specific prerequisites - https://www.phidgets.com/docs/OS_-_Linux
 wget https://www.phidgets.com/downloads/phidget22/libraries/linux/libphidget22.tar.gz
@@ -40,4 +37,6 @@ fn=`find -name *libphidget22.rule*`
 sudo mv ${fn} /etc/udev/rules.d.
 
 # Python3 specific prerequisites - https://www.phidgets.com/docs/Language_-_Python 
-pip3 install Phidget22
+pip3 install -Ir python/requirements-wind_turbine.txt --no-cache-dir
+
+sudo rm -rf /tmp/wind-turbine-install
