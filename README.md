@@ -1,12 +1,7 @@
 The packages can be installed with given [requirements.sh](requirements.sh) or manual with below steps:
 
 # Prerequisites
-```
-cd
-sudo apt-get -y install build-essential
-sudo apt-get install -y zip unzip
-sudo apt-get install -y python3-setuptools
-```
+
 # Install 
 * [System](https://www.phidgets.com/docs/OS_-_Linux#Quick_Downloads)
 ``` 
@@ -21,13 +16,11 @@ sudo mv ${fn} /etc/udev/rules.d.
 ``` 
 
 * [Python](https://www.phidgets.com/docs/Language_-_Python) 
-``` 
-cd 
-wget https://www.phidgets.com/downloads/phidget22/libraries/any/Phidget22Python.zip
-unzip ~/Phidget22Python.zip
-cd ~/Phidget22Python
-sudo python3 setup.py install
 ```
+pip3 install Phidget22
+
+```
+
 
 # Supported Sensor Modules
 * Humidity and Temperature [HUM1000_0](https://www.phidgets.com/?tier=3&catid=14&pcid=12&prodid=644)
