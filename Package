@@ -9,7 +9,7 @@ plugin_package_name=foglamp-south-wind-turbine
 #   1. Generic packages we depend on in all architectures and package managers
 #   2. Architecture specific packages we depend on
 #   3. Package manager specific packages we depend on
-requirements="foglamp"
+requirements="foglamp,libusb-1.0-0-dev"
 
 case "$arch" in
 	x86_64)
