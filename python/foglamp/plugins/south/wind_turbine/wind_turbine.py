@@ -1,17 +1,16 @@
-"""
-The following is intended as the south-plugin of Dianomic's windbine demo of FogLAMP. The code uses the following Phidget based sensors: 
-    - Temperature & Humidity: HUM1000_0 (https://www.phidgets.com/?tier=3&catid=14&pcid=12&prodid=644)
-    - Spatial: MOT1101_0 (https://www.phidgets.com/?tier=3&catid=10&pcid=8&prodid=975)
-    - Rotary: 3531_0 (https://www.phidgets.com/?tier=3&catid=103&pcid=83&prodid=404)
-    - Current: VCP1100_0 (https://www.phidgets.com/?tier=3&catid=16&pcid=14&prodid=983)
-"""
 # -*- coding: utf-8 -*-
 
 # FOGLAMP_BEGIN
 # See: http://foglamp.readthedocs.io/
 # FOGLAMP_END
 
-""" Module for Phidget poll mode plugin """
+""" Module for Phidget poll mode plugin
+    The following is intended as the south service plugin of Dianomic wind turbine demo of FogLAMP. The code uses the following Phidget based sensors:
+        - Temperature & Humidity: HUM1000_0 (https://www.phidgets.com/?tier=3&catid=14&pcid=12&prodid=644)
+        - Spatial: MOT1101_0 (https://www.phidgets.com/?tier=3&catid=10&pcid=8&prodid=975)
+        - Rotary: 3531_0 (https://www.phidgets.com/?tier=3&catid=103&pcid=83&prodid=404)
+        - Current: VCP1100_0 (https://www.phidgets.com/?tier=3&catid=16&pcid=14&prodid=983)
+"""
 
 import copy
 import datetime
@@ -36,13 +35,13 @@ from Phidget22.Phidget import *
 
 
 __author__ = "Ori Shadmon" 
-__copyright__ = "Copyright (c) 2019 Dianomic Systems"
+__copyright__ = "Copyright (c) 2019 Dianomic Systems Inc."
 __license__ = "Apache 2.0"
 __version__ = "${VERSION}"
 
 _DEFAULT_CONFIG = {
     'plugin': {
-        'description': 'wind_turbine Poll Plugin',
+        'description': 'Wind Turbine Poll Plugin',
         'type': 'string',
         'default': 'wind_turbine',
         'readonly': 'true'
@@ -145,7 +144,7 @@ _DEFAULT_CONFIG = {
         'order': '14',
         'displayName': 'Enable Encoder'
     },
-   'spatialPort': {
+    'spatialPort': {
         'description': 'VINT Hub port of spatial sensors', 
         'type': 'string', 
         'default': '2', 
@@ -236,6 +235,7 @@ def plugin_info():
         'config': _DEFAULT_CONFIG
     }
 
+
 def plugin_init(config):
     """ Initialise the plugin.
     Args:
@@ -255,7 +255,7 @@ def plugin_init(config):
             data['humidity'].openWaitForAttachment(5000)
             try:
                 data['humidity'].getHumidity()
-            except Exception as e:
+            except Exception:
                 pass
 
             data['temperature'] = TemperatureSensor()  
@@ -266,7 +266,7 @@ def plugin_init(config):
             data['temperature'].openWaitForAttachment(5000)
             try:
                 data['temperature'].getTemperature()
-            except Exception as e:
+            except Exception:
                 pass
 
         if data['currentEnable']['value'] == 'true': 
@@ -278,7 +278,7 @@ def plugin_init(config):
             data['current'].openWaitForAttachment(5000)
             try:
                 data['current'].getCurrent()
-            except Exception as e:
+            except Exception:
                 pass
 
         if data['encoderEnable']['value'] == 'true': 
@@ -293,9 +293,9 @@ def plugin_init(config):
             while i < 120:
                 try:
                     data['encoder'].getPosition()
-                except Exception as e:
+                except Exception:
                     time.sleep(1)
-                    i+=1
+                    i += 1
                 else:
                     break
     
@@ -311,9 +311,9 @@ def plugin_init(config):
             while i < 120:
                 try:
                     data['accelerometer'].getAcceleration()
-                except Exception as e:
+                except Exception:
                     time.sleep(1)
-                    i+=1
+                    i += 1
                 else:
                     break
 
@@ -329,9 +329,9 @@ def plugin_init(config):
             while i < 120:
                 try:
                     data['gyroscope'].getAngularRate()
-                except Exception as e:
+                except Exception:
                     time.sleep(1)
-                    i+=1
+                    i += 1
                 else:
                     break
 
@@ -347,9 +347,9 @@ def plugin_init(config):
             while i < 120: 
                 try: 
                     data['magnetometer'].getMagneticField() 
-                except Exception as e: 
+                except Exception:
                     time.sleep(1)
-                    i+=1
+                    i += 1
                 else: 
                     break 
 
@@ -382,12 +382,12 @@ def plugin_poll(handle):
     Raises:
         TimeoutError
     """
-    # air quality is votlage reading between 0 and 5.1
+    # air quality is voltage reading between 0 and 5.1
     # we scale is to a value between 0 and 1023
     try:
         time_stamp = utils.local_timestamp()
         data = list()
-        if (handle['tempHumEnable']['value'] == 'true' and handle['tempHumCount'] == 0): 
+        if handle['tempHumEnable']['value'] == 'true' and handle['tempHumCount'] == 0:
             data.append({
                 'asset': '{}{}'.format(handle['assetPrefix']['value'], handle['tempHumAssetName']['value']),
                 'timestamp': time_stamp,
@@ -398,7 +398,7 @@ def plugin_poll(handle):
                 }    
             })
 
-        if (handle['currentEnable']['value'] == 'true' and handle['currentCount'] == 0): 
+        if handle['currentEnable']['value'] == 'true' and handle['currentCount'] == 0:
             data.append({
                 'asset': '{}{}'.format(handle['assetPrefix']['value'], handle['currentAssetName']['value']),
                 'timestamp': time_stamp,
@@ -408,19 +408,19 @@ def plugin_poll(handle):
                 }
             })
 
-        if (handle['encoderEnable']['value'] == 'true' and handle['encoderCount'] == 0):
+        if handle['encoderEnable']['value'] == 'true' and handle['encoderCount'] == 0:
             value = handle['encoder'].getPosition()
-            # convert time_stmp to be usable  
+            # convert time_stamp to be usable
             if ":" == time_stamp[-3:-2]:
-               timestamp_new = datetime.datetime.strptime(time_stamp[:-3]+time_stamp[-2:], '%Y-%m-%d %H:%M:%S.%f%z')
+                timestamp_new = datetime.datetime.strptime(time_stamp[:-3]+time_stamp[-2:], '%Y-%m-%d %H:%M:%S.%f%z')
             else: 
                 timestamp_new = datetime.datetime.strptime(time_stamp, '%Y-%m-%d %H:%M:%S.%f%z')
 
-            if handle['encoderPreviousValue'] > 0: # ommit first one
-               # calculate elapse time in milliseconds 
-               elapse_time = timestamp_new - handle['encoderPreviousTime'] 
-               elapse_time = elapse_time.total_seconds() 
-               data.append({
+            if handle['encoderPreviousValue'] > 0:  # omit first one
+                # calculate elapse time in milliseconds
+                elapse_time = timestamp_new - handle['encoderPreviousTime']
+                elapse_time = elapse_time.total_seconds()
+                data.append({
                     'asset': '{}{}'.format(handle['assetPrefix']['value'], handle['encoderAssetName']['value']),
                     'timestamp': time_stamp,
                     'key': str(uuid.uuid4()),
@@ -433,7 +433,7 @@ def plugin_poll(handle):
             handle['encoderPreviousValue'] = value 
             handle['encoderPreviousTime'] = timestamp_new 
 
-        if (handle['accelerometerEnable']['value'] == 'true' and handle['accelerometerCount'] == 0):
+        if handle['accelerometerEnable']['value'] == 'true' and handle['accelerometerCount'] == 0:
             x, y, z = handle['accelerometer'].getAcceleration()
             data.append({
                 'asset': '{}{}'.format(handle['assetPrefix']['value'], handle['accelerometerAssetName']['value']),
@@ -446,7 +446,7 @@ def plugin_poll(handle):
                 }
             })
 
-        if (handle['gyroscopeEnable']['value'] == 'true' and handle['gyroscopeCount'] == 0): 
+        if handle['gyroscopeEnable']['value'] == 'true' and handle['gyroscopeCount'] == 0:
             x, y, z = handle['gyroscope'].getAngularRate()
             data.append({
                 'asset': '{}{}'.format(handle['assetPrefix']['value'], handle['gyroscopeAssetName']['value']),
@@ -459,7 +459,7 @@ def plugin_poll(handle):
                 }
             })
 
-        if (handle['magnetometerEnable']['value'] == 'true' and handle['magnetometerCount'] == 0):
+        if handle['magnetometerEnable']['value'] == 'true' and handle['magnetometerCount'] == 0:
             x, y, z = handle['magnetometer'].getMagneticField()
             data.append({
                 'asset': '{}{}'.format(handle['assetPrefix']['value'], handle['magnetometerAssetName']['value']),
@@ -521,7 +521,7 @@ def plugin_reconfigure(handle, new_config):
             new_handle['humidity'].openWaitForAttachment(5000)
             try:
                 new_handle['humidity'].getHumidity()
-            except Exception as e:
+            except Exception:
                 pass
 
             new_handle['temperature'] = TemperatureSensor()
@@ -532,7 +532,7 @@ def plugin_reconfigure(handle, new_config):
             new_handle['temperature'].openWaitForAttachment(5000)
             try:
                 new_handle['temperature'].getTemperature()
-            except Exception as e:
+            except Exception:
                 pass
 
         # check if current sensor is enabled, if so restart it 
@@ -545,7 +545,7 @@ def plugin_reconfigure(handle, new_config):
             new_handle['current'].openWaitForAttachment(5000)
             try:
                 new_handle['current'].getCurrent()
-            except Exception as e:
+            except Exception:
                 pass
 
         # check if encoder sensor is enabled  
@@ -561,9 +561,9 @@ def plugin_reconfigure(handle, new_config):
             while i < 120:
                 try:
                     new_handle['encoder'].getPosition()
-                except Exception as e:
+                except Exception:
                     time.sleep(1)
-                    i+=1
+                    i += 1
                 else:
                     break
 
@@ -580,9 +580,9 @@ def plugin_reconfigure(handle, new_config):
             while i < 120:
                 try:
                     new_handle['accelerometer'].getAcceleration()
-                except Exception as e:
+                except Exception:
                     time.sleep(1)
-                    i+=1
+                    i += 1
                 else:
                     break
         # check if gyroscope is enabled 
@@ -598,9 +598,9 @@ def plugin_reconfigure(handle, new_config):
             while i < 120:
                 try:
                     new_handle['gyroscope'].getAngularRate()
-                except Exception as e:
+                except Exception:
                     time.sleep(1)
-                    i+=1
+                    i += 1
                 else:
                     break
         # check if magnetometer enable is enabled 
@@ -616,9 +616,9 @@ def plugin_reconfigure(handle, new_config):
             while i < 120:
                 try:
                     new_handle['magnetometer'].getMagneticField()
-                except Exception as e:
+                except Exception:
                     time.sleep(1)
-                    i+=1
+                    i += 1
                 else:
                     break
 
