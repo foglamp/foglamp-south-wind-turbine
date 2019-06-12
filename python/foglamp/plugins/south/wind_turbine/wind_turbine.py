@@ -5,7 +5,9 @@
 # FOGLAMP_END
 
 """ Module for Phidget poll mode plugin
-    The following is intended as the south service plugin of Dianomic wind turbine demo of FogLAMP. The code uses the following Phidget based sensors:
+
+    The following is intended as the south service plugin of Dianomic wind turbine demo of FogLAMP.
+    Phidget based sensors:
         - Temperature & Humidity: HUM1000_0 (https://www.phidgets.com/?tier=3&catid=14&pcid=12&prodid=644)
         - Spatial: MOT1101_0 (https://www.phidgets.com/?tier=3&catid=10&pcid=8&prodid=975)
         - Rotary: 3531_0 (https://www.phidgets.com/?tier=3&catid=103&pcid=83&prodid=404)
@@ -665,4 +667,3 @@ def plugin_shutdown(handle):
         _LOGGER.exception("wind_turbine exception: {}".format(str(ex)))
         raise ex
     _LOGGER.info('wind_turbine plugin shut down.')
-
