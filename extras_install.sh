@@ -20,14 +20,14 @@
 ## Author: Ori Shadmon 
 ##
 
-set -e
+mkdir /tmp/wind-turbine-install
+cd /tmp/wind-turbine-install
 
-# Apt package
-sudo apt-get install libusb-1.0-0-dev
-
-## extras install
-## ./extras_install
-
-# Python3 specific prerequisites - https://www.phidgets.com/docs/Language_-_Python 
-pip3 install -Ir python/requirements-wind_turbine.txt --no-cache-dir
-
+# Linux specific prerequisites - https://www.phidgets.com/docs/OS_-_Linux
+wget https://www.phidgets.com/downloads/phidget22/libraries/linux/libphidget22.tar.gz
+tar -xzvf /tmp/wind-turbine-install/libphidget22.tar.gz
+cd /tmp/wind-turbine-install/libphidget22-*
+./configure --prefix=/ && make && sudo make install
+fn=`find -name *libphidget22.rule*`
+sudo mv ${fn} /etc/udev/rules.d.
+sudo rm -rf /tmp/wind-turbine-install
