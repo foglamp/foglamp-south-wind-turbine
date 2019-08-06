@@ -26,8 +26,7 @@ set -e
 sudo apt-get install libusb-1.0-0-dev
 
 ## extras install
-## ./extras_install
+./extras_install.sh
 
 # Python3 specific prerequisites - https://www.phidgets.com/docs/Language_-_Python 
 pip3 install -Ir python/requirements-wind_turbine.txt --no-cache-dir
-
