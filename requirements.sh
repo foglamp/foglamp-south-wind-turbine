@@ -22,8 +22,15 @@
 
 set -e
 
-# Apt package
-sudo apt-get install libusb-1.0-0-dev
+os_name=`(grep -o '^NAME=.*' /etc/os-release | cut -f2 -d\" | sed 's/"//g')`
+os_version=`(grep -o '^VERSION_ID=.*' /etc/os-release | cut -f2 -d\" | sed 's/"//g')`
+echo "Platform is ${os_name}, Version: ${os_version}"
+
+if [[ ( $os_name == *"Red Hat"* || $os_name == *"CentOS"* ) &&  $os_version == *"7"* ]]; then
+    sudo yum install -y libusb1-devel
+else
+    sudo apt install -y libusb-1.0-0-dev
+fi
 
 ## extras install
 ./extras_install.sh

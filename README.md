@@ -6,7 +6,10 @@ The packages can be installed with given [requirements.sh](requirements.sh) or m
 * [System](https://www.phidgets.com/docs/OS_-_Linux#Quick_Downloads)
 ``` 
 cd 
+# Debian based
 sudo apt-get install libusb-1.0-0-dev
+# Rpm based
+sudo yum install libusb1-devel
 wget https://www.phidgets.com/downloads/phidget22/libraries/linux/libphidget22.tar.gz 
 tar -xzvf ~/libphidget22.tar.gz
 cd ~/libphidget22-1.1.20190417  
