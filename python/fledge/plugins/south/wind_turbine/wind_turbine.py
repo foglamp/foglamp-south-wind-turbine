@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-# FOGLAMP_BEGIN
-# See: http://foglamp.readthedocs.io/
-# FOGLAMP_END
+# FLEDGE_BEGIN
+# See: http://fledge.readthedocs.io/
+# FLEDGE_END
 
 """ Module for Phidget poll mode plugin
 
-    The following is intended as the south service plugin of Dianomic wind turbine demo of FogLAMP.
+    The following is intended as the south service plugin of Dianomic wind turbine demo of Fledge.
     Phidget based sensors:
         - Temperature & Humidity: HUM1000_0 (https://www.phidgets.com/?tier=3&catid=14&pcid=12&prodid=644)
         - Spatial: MOT1101_0 (https://www.phidgets.com/?tier=3&catid=10&pcid=8&prodid=975)
@@ -21,9 +21,9 @@ import math
 import time 
 import uuid 
 
-from foglamp.common import logger
-from foglamp.plugins.common import utils
-from foglamp.services.south import exceptions
+from fledge.common import logger
+from fledge.plugins.common import utils
+from fledge.services.south import exceptions
 
 from Phidget22.Devices.Accelerometer import *
 from Phidget22.Devices.CurrentInput import * 
