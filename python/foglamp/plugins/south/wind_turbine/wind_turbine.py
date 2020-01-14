@@ -19,7 +19,6 @@ import datetime
 import logging
 import math
 import time 
-import uuid 
 
 from foglamp.common import logger
 from foglamp.plugins.common import utils
@@ -393,7 +392,6 @@ def plugin_poll(handle):
             data.append({
                 'asset': '{}{}'.format(handle['assetPrefix']['value'], handle['tempHumAssetName']['value']),
                 'timestamp': time_stamp,
-                'key': str(uuid.uuid4()),
                 'readings': {
                     "temperature": handle['temperature'].getTemperature(),
                     "humidity": handle['humidity'].getHumidity()
@@ -404,7 +402,6 @@ def plugin_poll(handle):
             data.append({
                 'asset': '{}{}'.format(handle['assetPrefix']['value'], handle['currentAssetName']['value']),
                 'timestamp': time_stamp,
-                'key': str(uuid.uuid4()),
                 'readings': {
                     "current": handle['current'].getCurrent()
                 }
@@ -425,7 +422,6 @@ def plugin_poll(handle):
                 data.append({
                     'asset': '{}{}'.format(handle['assetPrefix']['value'], handle['encoderAssetName']['value']),
                     'timestamp': time_stamp,
-                    'key': str(uuid.uuid4()),
                     'readings': {
                         # (current_total_iterations - previous_total_iterations) / (elapsed time in seconds) 
                         "rotation-per-second":  ((value - handle['encoderPreviousValue'])/1200)/elapse_time 
@@ -440,7 +436,6 @@ def plugin_poll(handle):
             data.append({
                 'asset': '{}{}'.format(handle['assetPrefix']['value'], handle['accelerometerAssetName']['value']),
                 'timestamp': time_stamp,
-                'key': str(uuid.uuid4()),
                 'readings': {
                     "accelerometer-x": x,
                     "accelerometer-y": y, 
@@ -453,7 +448,6 @@ def plugin_poll(handle):
             data.append({
                 'asset': '{}{}'.format(handle['assetPrefix']['value'], handle['gyroscopeAssetName']['value']),
                 'timestamp': time_stamp,
-                'key': str(uuid.uuid4()),
                 'readings': {
                     "gyroscope-x": x,
                     "gyroscope-y": y,
@@ -466,7 +460,6 @@ def plugin_poll(handle):
             data.append({
                 'asset': '{}{}'.format(handle['assetPrefix']['value'], handle['magnetometerAssetName']['value']),
                 'timestamp': time_stamp,
-                'key': str(uuid.uuid4()),
                 'readings': {
                     "magnetometer-x": x,
                     "magnetometer-y": y,
